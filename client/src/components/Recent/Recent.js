@@ -11,7 +11,7 @@ const createRecentContact = (name, date, message, profilePicture, active) => {
     <div class={style}>
       <div class="chat_people">
         <div class="chat_img">
-          <img src={profilePicture} />
+          <img src={profilePicture} alt={name} />
         </div>
         <div class="chat_ib">
           <h5>
