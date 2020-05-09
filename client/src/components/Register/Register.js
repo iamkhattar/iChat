@@ -16,6 +16,9 @@ const Register = () => {
             <input type="password" placeholder="Password" />
           </div>
           <div>
+            <input type="password" placeholder="Repeat Password" />
+          </div>
+          <div>
             <Link to="/chat">
               <button>Register</button>
             </Link>
