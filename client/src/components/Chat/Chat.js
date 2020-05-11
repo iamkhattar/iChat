@@ -127,11 +127,11 @@ const Chat = () => {
                   <div class="stylish-input-group">
                     <input
                       type="text"
-                      class="search-bar"
-                      placeholder="Add a Friend"
+                      class="search-bar text-left"
+                      placeholder="Add a Contact"
                     />
                     <span class="input-group-addon">
-                      <button type="button">
+                      <button type="button" style={{ outline: "none" }}>
                         <i class="fa fa-user-plus" aria-hidden="true"></i>
                       </button>
                     </span>
@@ -180,7 +180,11 @@ const Chat = () => {
                     class="write_msg"
                     placeholder="Type a message"
                   />
-                  <button class="msg_send_btn" type="button">
+                  <button
+                    class="msg_send_btn"
+                    type="button"
+                    style={{ outline: "none" }}
+                  >
                     <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
                   </button>
                 </div>
