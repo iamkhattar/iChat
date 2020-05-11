@@ -94,7 +94,7 @@ const Chat = () => {
     return (
       <button
         class={style}
-        style={{ border: "0px" }}
+        style={{ border: "0px", outline: "none" }}
         onClick={(e) => handleChangeChat(id)}
       >
         <div className="chat_people">
