@@ -22,11 +22,11 @@ const Chat = () => {
                     <input
                       type="text"
                       class="search-bar"
-                      placeholder="Search"
+                      placeholder="Add a Friend"
                     />
                     <span class="input-group-addon">
                       <button type="button">
-                        <i class="fa fa-search" aria-hidden="true"></i>
+                        <i class="fa fa-user-plus" aria-hidden="true"></i>
                       </button>
                     </span>
                   </div>
@@ -45,7 +45,8 @@ const Chat = () => {
                   "Name 2",
                   "Dec 25",
                   "Lorem ipsum Dipsum",
-                  "https://ptetutorials.com/images/user-profile.png"
+                  "https://ptetutorials.com/images/user-profile.png",
+                  false
                 )}
               </div>
             </div>
