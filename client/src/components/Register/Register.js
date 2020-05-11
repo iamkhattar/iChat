@@ -7,6 +7,9 @@ const Register = () => {
       <div class="container row align-items-center h-100 justify-content-center">
         <div class="text-center">
           <div className="srch_bar w-100 pb-2">
+            <input type="text" className="w-100" placeholder="Name" />
+          </div>
+          <div className="srch_bar w-100 pb-2">
             <input type="text" className="w-100" placeholder="Email" />
           </div>
           <div className="srch_bar w-100 pb-2">
