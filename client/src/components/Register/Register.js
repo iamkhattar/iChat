@@ -6,24 +6,25 @@ const Register = () => {
     <div class="mainApp ">
       <div class="container row align-items-center h-100 justify-content-center">
         <div class="text-center">
-          <div>
-            <h2>Sign Up</h2>
+          <div className="srch_bar w-100 pb-2">
+            <input type="text" className="w-100" placeholder="Email" />
           </div>
-          <div>
-            <input type="text" placeholder="Email" />
+          <div className="srch_bar w-100 pb-2">
+            <input type="password" className="w-100" placeholder="Password" />
           </div>
-          <div>
-            <input type="password" placeholder="Password" />
+          <div className="srch_bar w-100 pb-3">
+            <input
+              type="password"
+              className="w-100"
+              placeholder="Repeat Password"
+            />
           </div>
-          <div>
-            <input type="password" placeholder="Repeat Password" />
-          </div>
-          <div>
+          <div className="pb-2" style={{ height: "2.7rem" }}>
             <Link to="/chat">
-              <button>Register</button>
+              <button className="w-100 h-100 btn btn-primary">Register</button>
             </Link>
           </div>
-          <div>
+          <div className="text-right">
             Already a user? <Link to="/">Login Here</Link>
           </div>
         </div>

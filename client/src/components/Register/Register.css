@@ -1,0 +1,24 @@
+.mainApp {
+  height: 100vh;
+}
+
+textarea,
+select,
+input,
+button {
+  outline: none;
+}
+
+.srch_bar input {
+  border: 1px solid #cdcdcd;
+  border-width: 0 0 1px 0;
+  width: 75%;
+  background: none;
+  text-align: center;
+}
+
+.login-btn {
+  color: black;
+  border: 0px;
+  background-color: #cdcdcd;
+}

@@ -11,22 +11,20 @@ const Login = () => {
     <div class="mainApp ">
       <div class="container row align-items-center h-100 justify-content-center">
         <div class="text-center">
-          <div>
-            <h2>Sign In</h2>
+          <div className="srch_bar w-100 pb-2">
+            <input type="text" className="w-100" placeholder="Email" />
           </div>
-          <div>
-            <input type="text" placeholder="Email" />
+          <div className="srch_bar w-100 pb-2">
+            <input type="password" className="w-100" placeholder="Password" />
           </div>
-          <div>
-            <input type="password" placeholder="Password" />
-          </div>
-          <div>
+
+          <div className="pb-2" style={{ height: "2.7rem" }}>
             <Link to="/chat">
-              <button>Login</button>
+              <button className="w-100 h-100 btn btn-primary">Login</button>
             </Link>
           </div>
-          <div>
-            Not a user? <Link to="/register">Register Here</Link>
+          <div className="text-right">
+            Already a user? <Link to="/register">Register Here</Link>
           </div>
         </div>
       </div>
