@@ -17,6 +17,13 @@ const UserSchema = new mongoose.Schema({
   image: {
     type: String,
   },
+  friends: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+      },
+    },
+  ],
   date: {
     type: Date,
     default: Date.now,

@@ -26,11 +26,14 @@ router.post("/", async (req, res) => {
       d: "mm",
     });
 
+    const friends = [];
+
     user = new User({
       name,
       email,
       image,
       password,
+      friends,
     });
 
     const salt = await bcrypt.genSalt(10);
