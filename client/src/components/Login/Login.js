@@ -1,28 +1,54 @@
 import React, { useState, useEffect } from "react";
 
-import { Link } from "react-router-dom";
+import axios from "axios";
+
+import { Link, Redirect } from "react-router-dom";
 import "./Login.css";
 
 const Login = () => {
   useEffect(() => {
     const token = localStorage.getItem("x-auth-token");
-    localStorage.clear();
+    if (token != null) {
+      setIsAuthenticated(true);
+    }
+    console.log(token);
   }, []);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (email === "" || password === "") {
       setErrors([...errors, "All fields must be filled"]);
     }
-    if (errors.length > 0) setTimeout(() => setErrors([]), 3000);
+    if (errors.length > 0) return setTimeout(() => setErrors([]), 3000);
 
-    console.log(email);
-    console.log(password);
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const body = JSON.stringify({ email, password });
+      const res = await axios.post("/api/login", body, config);
+      const token = res.data.token;
+      localStorage.setItem("x-auth-token", token);
+      setIsAuthenticated(true);
+    } catch (err) {
+      var errs = err.response.data.errors;
+      var newErrs = [];
+      errs.map((currentErr) => newErrs.push(currentErr.msg));
+      setErrors(newErrs);
+      return setTimeout(() => setErrors([]), 3000);
+    }
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/chat" />;
+  }
 
   return (
     <div className="mainApp ">
