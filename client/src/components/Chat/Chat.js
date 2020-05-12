@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Chat.css";
 
 import createIncomingMessage from "../Messages/IncomingMessage";
 import createOutgoingMessage from "../Messages/OutgoingMessage";
 
 import { Redirect } from "react-router-dom";
+
+import { Overlay, Popover } from "react-bootstrap";
 
 const Chat = () => {
   useEffect(() => {
@@ -92,6 +94,15 @@ const Chat = () => {
     setCurrentChat(id);
   };
 
+  const [show, setShow] = useState(false);
+  const [target, setTarget] = useState(null);
+  const ref = useRef(null);
+
+  const handleAddFriend = (event) => {
+    setShow(!show);
+    setTarget(event.target);
+  };
+
   if (!isAuthenticated) {
     return <Redirect to="/" />;
   }
@@ -151,7 +162,25 @@ const Chat = () => {
                       placeholder="Add a Contact"
                     />
                     <span className="input-group-addon">
-                      <button type="button" style={{ outline: "none" }}>
+                      <Overlay
+                        show={show}
+                        target={target}
+                        placement="top"
+                        container={ref.current}
+                        containerPadding={20}
+                      >
+                        <Popover id="popover-contained">
+                          <Popover.Title as="h3">Popover bottom</Popover.Title>
+                          <Popover.Content>
+                            <strong>Holy guacamole!</strong> Check this info.
+                          </Popover.Content>
+                        </Popover>
+                      </Overlay>
+                      <button
+                        type="button"
+                        style={{ outline: "none" }}
+                        onClick={handleAddFriend}
+                      >
                         <i className="fa fa-user-plus" aria-hidden="true"></i>
                       </button>
                     </span>
@@ -202,7 +231,6 @@ const Chat = () => {
                 className="type_msg"
                 onSubmit={(e) => {
                   e.preventDefault();
-                  console.log("Hi");
                 }}
               >
                 <div className="input_msg_write">

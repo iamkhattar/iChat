@@ -19,9 +19,14 @@ const Register = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (email === "" || password === "" || repeatPassword == "" || name == "") {
+    if (
+      email === "" ||
+      password === "" ||
+      repeatPassword === "" ||
+      name === ""
+    ) {
       setErrors([...errors, "All fields must be filled"]);
-    } else if (password != repeatPassword) {
+    } else if (password !== repeatPassword) {
       setErrors([...errors, "Passwords dont match"]);
     }
     if (errors.length > 0) return setTimeout(() => setErrors([]), 3000);
