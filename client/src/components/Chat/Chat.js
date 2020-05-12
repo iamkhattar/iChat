@@ -12,13 +12,22 @@ const Chat = () => {
       url: "https://ptetutorials.com/images/user-profile.png",
       messages: [
         {
-          message: "Hello",
+          message:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non quam sed ligula cursus ultricies. Vestibulum ut iaculis justo, ac tincidunt diam.",
           type: "in",
           date: "Oct 25",
           time: "12:00pm",
         },
         {
-          message: "Bye",
+          message:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non quam sed ligula cursus ultricies. Vestibulum ut iaculis justo, ac tincidunt diam.",
+          type: "out",
+          date: "Oct 25",
+          time: "12:01pm",
+        },
+        {
+          message:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non quam sed ligula cursus ultricies. Vestibulum ut iaculis justo, ac tincidunt diam.",
           type: "out",
           date: "Oct 25",
           time: "12:01pm",
@@ -31,13 +40,15 @@ const Chat = () => {
       url: "https://ptetutorials.com/images/user-profile.png",
       messages: [
         {
-          message: "Hope you had a nice day",
+          message:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non quam sed ligula cursus ultricies. Vestibulum ut iaculis justo, ac tincidunt diam.",
           type: "in",
           date: "Oct 25",
           time: "12:00pm",
         },
         {
-          message: "Hey",
+          message:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non quam sed ligula cursus ultricies. Vestibulum ut iaculis justo, ac tincidunt diam.",
           type: "out",
           date: "Oct 25",
           time: "12:00pm",
@@ -140,11 +151,17 @@ const Chat = () => {
               </div>
               <div class="inbox_chat">
                 {friends.map((friend) => {
+                  const lastMessage = friend.messages[0].message;
+                  console.log(lastMessage.length);
+                  const message =
+                    lastMessage.length > 50
+                      ? lastMessage.substring(0, 50) + "..."
+                      : lastMessage;
                   return createRecentContact(
                     friend.id,
                     friend.name,
                     friend.messages[0].date,
-                    friend.messages[0].message,
+                    message,
                     friend.url,
                     friend.id === currentChat
                   );
