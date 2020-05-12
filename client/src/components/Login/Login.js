@@ -11,7 +11,6 @@ const Login = () => {
     if (token) {
       setIsAuthenticated(true);
     }
-    console.log(token);
   }, []);
 
   const [email, setEmail] = useState("");
