@@ -4,6 +4,8 @@ import "./Chat.css";
 import createIncomingMessage from "../Messages/IncomingMessage";
 import createOutgoingMessage from "../Messages/OutgoingMessage";
 
+import { Redirect } from "react-router-dom";
+
 const Chat = () => {
   const [friends, setFriends] = useState([
     {
@@ -75,18 +77,24 @@ const Chat = () => {
       ],
     },
   ]);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [currentChat, setCurrentChat] = useState("id1");
 
   const handleChangeChat = (id) => {
-    console.log(id);
     setCurrentChat(id);
-    const currentId = friends.filter((friend) => friend.id === currentChat)[0]
-      .messages;
   };
 
   useEffect(() => {
     handleChangeChat(friends[0].id);
+    const token = localStorage.getItem("x-auth-token");
+    if (!token) {
+      setIsAuthenticated(false);
+    }
   }, []);
+
+  if (!isAuthenticated) {
+    return <Redirect to="/" />;
+  }
 
   const createRecentContact = (
     id,

@@ -8,7 +8,7 @@ import "./Login.css";
 const Login = () => {
   useEffect(() => {
     const token = localStorage.getItem("x-auth-token");
-    if (token != null) {
+    if (token) {
       setIsAuthenticated(true);
     }
     console.log(token);
