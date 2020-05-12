@@ -104,9 +104,10 @@ const Chat = () => {
     }
     return (
       <button
-        class={style}
+        className={style}
         style={{ border: "0px", outline: "none" }}
         onClick={(e) => handleChangeChat(id)}
+        key={id}
       >
         <div className="chat_people">
           <div className="chat_img">
@@ -125,34 +126,33 @@ const Chat = () => {
 
   return (
     <div className="mainApp">
-      <div class="container row align-items-center h-100 justify-content-center">
-        <div class="messaging">
-          <h1 class="text-center">iChat</h1>
-          <div class="inbox_msg">
-            <div class="inbox_people">
-              <div class="headind_srch">
-                <div class="recent_heading">
+      <div className="container row align-items-center h-100 justify-content-center">
+        <div className="messaging">
+          <h1 className="text-center">iChat</h1>
+          <div className="inbox_msg">
+            <div className="inbox_people">
+              <div className="headind_srch">
+                <div className="recent_heading">
                   <h4>Recent</h4>
                 </div>
-                <div class="srch_bar">
-                  <div class="stylish-input-group">
+                <div className="srch_bar">
+                  <div className="stylish-input-group">
                     <input
                       type="text"
-                      class="search-bar text-left"
+                      className="search-bar text-left"
                       placeholder="Add a Contact"
                     />
-                    <span class="input-group-addon">
+                    <span className="input-group-addon">
                       <button type="button" style={{ outline: "none" }}>
-                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                        <i className="fa fa-user-plus" aria-hidden="true"></i>
                       </button>
                     </span>
                   </div>
                 </div>
               </div>
-              <div class="inbox_chat">
+              <div className="inbox_chat">
                 {friends.map((friend) => {
                   const lastMessage = friend.messages[0].message;
-                  console.log(lastMessage.length);
                   const message =
                     lastMessage.length > 50
                       ? lastMessage.substring(0, 50) + "..."
@@ -168,8 +168,8 @@ const Chat = () => {
                 })}
               </div>
             </div>
-            <div class="mesgs">
-              <div class="msg_history">
+            <div className="mesgs">
+              <div className="msg_history">
                 {friends
                   .filter((friend) => friend.id === currentChat)[0]
                   .messages.map((chat) => {
@@ -190,22 +190,28 @@ const Chat = () => {
                     }
                   })}
               </div>
-              <div class="type_msg">
-                <div class="input_msg_write">
+              <form
+                className="type_msg"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  console.log("Hi");
+                }}
+              >
+                <div className="input_msg_write">
                   <input
                     type="text"
-                    class="write_msg"
+                    className="write_msg"
                     placeholder="Type a message"
                   />
                   <button
-                    class="msg_send_btn"
-                    type="button"
+                    className="msg_send_btn"
+                    type="submit"
                     style={{ outline: "none" }}
                   >
-                    <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                    <i className="fa fa-paper-plane-o" aria-hidden="true"></i>
                   </button>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>

@@ -8,9 +8,9 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   return (
-    <div class="mainApp ">
-      <div class="container row align-items-center h-100 justify-content-center">
-        <div class="text-center">
+    <div className="mainApp ">
+      <div className="container row align-items-center h-100 justify-content-center">
+        <div className="text-center">
           <div className="srch_bar w-100 pb-2">
             <input type="text" className="w-100" placeholder="Email" />
           </div>
