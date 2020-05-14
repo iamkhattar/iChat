@@ -7,12 +7,17 @@ const auth = require("../../middleware/auth");
  * @desc    Add a friend
  * @access  Private
  */
-router.get("/", auth, async (req, res) => {
+router.post("/", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
-    const friendUser = await User.find({ email: req.body.friend });
-    if (friendUser) return res.json(friendUser);
-    return res.json(user);
+    const friendUser = await User.findOne({ email: req.body.friend });
+
+    const userID = user._id;
+    const friendID = friendUser._id;
+    console.log(friendUser);
+
+    if (friendUser) return res.json(userID + " " + friendID);
+    return res.json("Hello");
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

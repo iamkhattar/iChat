@@ -17,6 +17,7 @@ app.get("/api/", (req, res) => res.send("API Running"));
 app.use("/api/register", require("./routes/api/register"));
 app.use("/api/login", require("./routes/api/login"));
 app.use("/api/fetch", require("./routes/api/fetch"));
+app.use("/api/friends", require("./routes/api/friends"));
 
 server.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)
