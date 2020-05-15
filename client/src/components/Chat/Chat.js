@@ -8,6 +8,8 @@ import { Redirect } from "react-router-dom";
 
 import { Overlay, Popover } from "react-bootstrap";
 
+import axios from "axios";
+
 const Chat = () => {
   useEffect(() => {
     handleChangeChat(friends[0].id);
@@ -16,6 +18,10 @@ const Chat = () => {
       setIsAuthenticated(false);
     }
   }, []);
+
+  const handleChangeChat = (id) => {
+    setCurrentChat(id);
+  };
 
   const [friends, setFriends] = useState([
     {
@@ -89,18 +95,32 @@ const Chat = () => {
   ]);
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [currentChat, setCurrentChat] = useState("id1");
-
-  const handleChangeChat = (id) => {
-    setCurrentChat(id);
-  };
-
+  const [contact, setContact] = useState("");
   const [show, setShow] = useState(false);
   const [target, setTarget] = useState(null);
   const ref = useRef(null);
+  const [popupMsg, setPopupMsg] = useState("");
 
-  const handleAddFriend = (event) => {
-    setShow(!show);
+  const handleAddFriend = async (event) => {
+    if (contact === "") return;
     setTarget(event.target);
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": localStorage.getItem("x-auth-token"),
+        },
+      };
+      const body = JSON.stringify({ friend: contact });
+
+      const res = await axios.post("/api/friends", body, config);
+      setShow(!show);
+      setPopupMsg("Friend Request Sent");
+    } catch (err) {
+      setPopupMsg(err.response.data.errors[0].msg);
+      setShow(!show);
+    }
+    return setTimeout(() => setShow(false), 3000);
   };
 
   if (!isAuthenticated) {
@@ -158,8 +178,10 @@ const Chat = () => {
                   <div className="stylish-input-group">
                     <input
                       type="text"
-                      className="search-bar text-left"
+                      className="search-bar text-left pr-5"
                       placeholder="Add a Contact"
+                      value={contact}
+                      onChange={(e) => setContact(e.target.value)}
                     />
                     <span className="input-group-addon">
                       <Overlay
@@ -170,10 +192,8 @@ const Chat = () => {
                         containerPadding={20}
                       >
                         <Popover id="popover-contained">
-                          <Popover.Title as="h3">Popover bottom</Popover.Title>
-                          <Popover.Content>
-                            <strong>Holy guacamole!</strong> Check this info.
-                          </Popover.Content>
+                          <Popover.Title as="h3">Friend Request</Popover.Title>
+                          <Popover.Content>{popupMsg}</Popover.Content>
                         </Popover>
                       </Overlay>
                       <button

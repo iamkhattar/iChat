@@ -3,7 +3,7 @@ const router = express.Router();
 const auth = require("../../middleware/auth");
 
 /**
- * @route   GET api/auth
+ * @route   POST api/auth
  * @desc    Add a friend
  * @access  Private
  */
