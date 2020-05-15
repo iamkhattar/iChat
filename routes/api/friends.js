@@ -14,7 +14,30 @@ router.post("/", auth, async (req, res) => {
 
     const userID = user._id;
     const friendID = friendUser._id;
-    console.log(friendUser);
+
+    if (user.email == friendUser.email) {
+      return res
+        .status(400)
+        .json({ errors: [{ msg: "You cannot friend yourself" }] });
+    }
+
+    let alreadyFriends = false;
+    user.friends.forEach((currentFriend) => {
+      if (currentFriend._id.toString() == friendID.toString()) {
+        alreadyFriends = true;
+      }
+    });
+
+    if (alreadyFriends) {
+      return res
+        .status(400)
+        .json({ errors: [{ msg: "Already friends with the user" }] });
+    }
+
+    user.friends.push(friendID);
+    await user.save();
+
+    return res.json(user.friends);
 
     if (friendUser) return res.json(userID + " " + friendID);
     return res.json("Hello");
