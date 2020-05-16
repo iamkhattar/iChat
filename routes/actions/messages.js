@@ -55,12 +55,13 @@ const getMessages = async (userID) => {
       });
     }
 
-    messages.sort(function (a, b) {
-      return a.mongoDate.getTime() < b.mongoDate.getTime();
-    });
+    messages.sort(
+      (a, b) =>
+        new Date(a.mongoDate).getTime() - new Date(b.mongoDate).getTime()
+    );
 
     console.log(messages);
-    response.push({ id, name, url: image, messages: [] });
+    response.push({ id, name, url: image, messages: messages });
   }
   return response;
 };
