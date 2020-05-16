@@ -8,11 +8,8 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
-const {
-  addUser,
-  removeUser,
-  getSocketID,
-} = require("./routes/actions/users.js");
+const { addUser, removeUser, getSocketID } = require("./routes/actions/users");
+const { sendMessage } = require("./routes/actions/messages");
 
 app.use(express.json({ extended: false }));
 

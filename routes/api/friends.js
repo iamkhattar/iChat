@@ -37,7 +37,9 @@ router.post("/", auth, async (req, res) => {
     }
 
     user.friends.push(friendID);
+    friendUser.friends.push(userID);
     await user.save();
+    await friendUser.save();
 
     const senderMessage = new Messages({
       sender: user,
