@@ -38,4 +38,23 @@ const getUserEmailFromMongoDB = async (token) => {
   }
 };
 
-module.exports = { addUser, removeUser, getSocketID };
+const getUserIDFromMongoDB = async (token) => {
+  var userID;
+  try {
+    jwt.verify(token, secrettoken, (error, decoded) => {
+      if (error) {
+        return console.log("Invalid Token");
+      } else {
+        userID = decoded.user.id;
+      }
+    });
+    if (!userID) return;
+
+    let user = await User.findById(userID).select("-password");
+    return user._id;
+  } catch (err) {
+    console.error("something wrong with auth middleware");
+  }
+};
+
+module.exports = { addUser, removeUser, getSocketID, getUserIDFromMongoDB };

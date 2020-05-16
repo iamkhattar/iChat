@@ -14,6 +14,14 @@ const MessagesSchema = new mongoose.Schema({
         required: true,
       },
       date: {
+        type: String,
+        required: true,
+      },
+      time: {
+        type: String,
+        required: true,
+      },
+      mongoDate: {
         type: Date,
         default: Date.now,
       },

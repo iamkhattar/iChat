@@ -46,6 +46,7 @@ const Chat = () => {
       };
       const res = await axios.get("/api/fetch", config);
       setFriends(res.data);
+      setCurrentChat(res.data[0].id);
     } catch (err) {
       setIsAuthenticated(false);
     }
@@ -95,6 +96,7 @@ const Chat = () => {
     const receiver = currentChat;
 
     socket.emit("sendMessage", { token, receiver, message });
+    setMessage("");
   };
 
   const createRecentContact = (
