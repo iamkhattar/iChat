@@ -73,6 +73,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               className="w-100"
               placeholder="Email"
+              required={true}
             />
           </div>
           <div className="srch_bar w-100 pb-2">
@@ -82,6 +83,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
+              required={true}
             />
           </div>
           <div className="pb-2" style={{ height: "2.7rem" }}>

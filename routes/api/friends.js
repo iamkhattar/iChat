@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../../middleware/auth");
 const User = require("../../models/User");
+const Messages = require("../../models/Messages");
 
 /**
  * @route   POST api/auth
@@ -38,10 +39,21 @@ router.post("/", auth, async (req, res) => {
     user.friends.push(friendID);
     await user.save();
 
-    return res.json(user.friends);
+    const senderMessage = new Messages({
+      sender: user,
+      receiver: friendUser,
+      history: [],
+    });
 
-    if (friendUser) return res.json(userID + " " + friendID);
-    return res.json("Hello");
+    const receiverMessage = new Messages({
+      sender: friendUser,
+      receiver: user,
+    });
+
+    await senderMessage.save();
+    await receiverMessage.save();
+
+    return res.json(user.friends);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

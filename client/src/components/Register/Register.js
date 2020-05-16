@@ -43,7 +43,6 @@ const Register = () => {
       localStorage.setItem("x-auth-token", token);
       setIsAuthenticated(true);
     } catch (err) {
-      return console.log(err);
       var errs = err.response.data.errors;
 
       var newErrs = [];
@@ -80,6 +79,7 @@ const Register = () => {
               placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required={true}
             />
           </div>
           <div className="srch_bar w-100 pb-2">
@@ -89,6 +89,7 @@ const Register = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
+              required={true}
             />
           </div>
           <div className="srch_bar w-100 pb-2">
@@ -98,6 +99,7 @@ const Register = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required={true}
             />
           </div>
           <div className="srch_bar w-100 pb-3">
@@ -107,6 +109,7 @@ const Register = () => {
               placeholder="Repeat Password"
               value={repeatPassword}
               onChange={(e) => setRepeatPassword(e.target.value)}
+              required={true}
             />
           </div>
           <div className="pb-2" style={{ height: "2.7rem" }}>
