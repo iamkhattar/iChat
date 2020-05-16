@@ -9,14 +9,27 @@ import { Redirect } from "react-router-dom";
 import { Overlay, Popover } from "react-bootstrap";
 
 import axios from "axios";
+import io from "socket.io-client";
+
+let socket;
 
 const Chat = () => {
+  socket = io("http://localhost:5000/");
   useEffect(() => {
     handleChangeChat(friends[0].id);
     const token = localStorage.getItem("x-auth-token");
     if (!token) {
       setIsAuthenticated(false);
     }
+    socket.emit("login", token);
+
+    socket.on("serverMessage", (message) => {
+      console.log(message);
+    });
+
+    socket.on("newMessage", (message) => {
+      console.log(message);
+    });
   }, []);
 
   const handleChangeChat = (id) => {
