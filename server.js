@@ -30,7 +30,6 @@ app.use("/api/friends", require("./routes/api/friends"));
 io.on("connect", (socket) => {
   socket.on("login", (token) => {
     addUser(token, socket.id);
-    socket.emit("serverMessage", "Welcome to iChat");
   });
 
   socket.on("sendMessage", async ({ token, receiver, message }) => {

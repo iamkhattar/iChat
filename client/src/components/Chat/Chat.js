@@ -32,7 +32,7 @@ const Chat = () => {
         };
         const res = await axios.get("/api/fetch", config);
         setFriends(res.data);
-        setCurrentChat(res.data[0].id);
+        if (res.data.length > 0) setCurrentChat(res.data[0].id);
       } catch (err) {
         setIsAuthenticated(false);
       }
@@ -44,10 +44,6 @@ const Chat = () => {
     checkIfTokenIsValid();
 
     socket.emit("login", token);
-
-    socket.on("serverMessage", (message) => {
-      console.log("ServerMessage", message);
-    });
 
     socket.on("newMessage", (message) => {
       setFriends(message);
@@ -81,6 +77,8 @@ const Chat = () => {
       const res = await axios.post("/api/friends", body, config);
       setShow(!show);
       setPopupMsg("Friend Request Sent");
+      socket.emit("getMessages", localStorage.getItem("x-auth-token"));
+      setContact("");
     } catch (err) {
       setPopupMsg(err.response.data.errors[0].msg);
       setShow(!show);

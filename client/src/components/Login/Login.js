@@ -53,6 +53,9 @@ const Login = () => {
     <div className="mainApp ">
       <div className="container row align-items-center h-100 justify-content-center">
         <form className="text-center" onSubmit={(e) => onSubmit(e)}>
+          <div>
+            <h2>iChat</h2>
+          </div>
           {errors.map((error) => {
             return (
               <div

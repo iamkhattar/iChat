@@ -24,6 +24,7 @@ const getMessages = async (userID) => {
   var response = [];
   for (friend of friends) {
     const currentFriendUser = await User.findById(friend).select("-password");
+    if (!currentFriendUser) return [];
     const { id, name, image } = currentFriendUser;
     const incomingMessages = await Messages.findOne({
       sender: friend,
