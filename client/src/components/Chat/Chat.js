@@ -14,32 +14,10 @@ import io from "socket.io-client";
 let socket;
 
 const Chat = () => {
-  socket = io("http://localhost:5000/");
-  useEffect(() => {
-    handleChangeChat(friends[0].id);
-    const token = localStorage.getItem("x-auth-token");
-    if (!token) {
-      setIsAuthenticated(false);
-    }
-    socket.emit("login", token);
-
-    socket.on("serverMessage", (message) => {
-      console.log(message);
-    });
-
-    socket.on("newMessage", (message) => {
-      console.log(message);
-    });
-  }, []);
-
-  const handleChangeChat = (id) => {
-    setCurrentChat(id);
-  };
-
   const [friends, setFriends] = useState([
     {
       id: "id1",
-      name: "Shivam Khattar",
+      name: "Shivam Khattar 2",
       url: "https://ptetutorials.com/images/user-profile.png",
       messages: [
         {
@@ -106,13 +84,42 @@ const Chat = () => {
       ],
     },
   ]);
+  socket = io("http://localhost:5000/");
+  useEffect(() => {
+    handleChangeChat(friends[0].id);
+    const token = localStorage.getItem("x-auth-token");
+    if (!token) {
+      setIsAuthenticated(false);
+    }
+
+    try {
+    } catch (err) {
+      setIsAuthenticated(false);
+    }
+
+    socket.emit("login", token);
+
+    socket.on("serverMessage", (message) => {
+      console.log(message);
+    });
+
+    socket.on("newMessage", (message) => {
+      console.log(message);
+    });
+  }, [friends]);
+
+  const handleChangeChat = (id) => {
+    setCurrentChat(id);
+  };
+
   const [isAuthenticated, setIsAuthenticated] = useState(true);
-  const [currentChat, setCurrentChat] = useState("id1");
+  const [currentChat, setCurrentChat] = useState(friends[0].id);
   const [contact, setContact] = useState("");
   const [show, setShow] = useState(false);
   const [target, setTarget] = useState(null);
   const ref = useRef(null);
   const [popupMsg, setPopupMsg] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleAddFriend = async (event) => {
     if (contact === "") return;
@@ -139,6 +146,14 @@ const Chat = () => {
   if (!isAuthenticated) {
     return <Redirect to="/" />;
   }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("x-auth-token");
+    const receiver = currentChat;
+
+    socket.emit("sendMessage", { token, receiver, message });
+  };
 
   const createRecentContact = (
     id,
@@ -263,7 +278,7 @@ const Chat = () => {
               <form
                 className="type_msg"
                 onSubmit={(e) => {
-                  e.preventDefault();
+                  handleSubmit(e);
                 }}
               >
                 <div className="input_msg_write">
@@ -271,6 +286,8 @@ const Chat = () => {
                     type="text"
                     className="write_msg"
                     placeholder="Type a message"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                   />
                   <button
                     className="msg_send_btn"

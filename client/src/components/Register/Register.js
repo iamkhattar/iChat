@@ -43,7 +43,9 @@ const Register = () => {
       localStorage.setItem("x-auth-token", token);
       setIsAuthenticated(true);
     } catch (err) {
+      return console.log(err);
       var errs = err.response.data.errors;
+
       var newErrs = [];
       errs.map((currentErr) => newErrs.push(currentErr.msg));
       setErrors(newErrs);
