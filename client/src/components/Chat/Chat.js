@@ -4,6 +4,8 @@ import "./Chat.css";
 import createIncomingMessage from "../Messages/IncomingMessage";
 import createOutgoingMessage from "../Messages/OutgoingMessage";
 
+import ScrollToBottom from "react-scroll-to-bottom";
+
 import { Redirect } from "react-router-dom";
 
 import { Overlay, Popover } from "react-bootstrap";
@@ -20,11 +22,27 @@ const Chat = () => {
   socket = io("http://localhost:5000/");
 
   useEffect(() => {
+    const checkIfTokenIsValid = async () => {
+      const token = localStorage.getItem("x-auth-token");
+      try {
+        const config = {
+          headers: {
+            "x-auth-token": token,
+          },
+        };
+        const res = await axios.get("/api/fetch", config);
+        setFriends(res.data);
+        setCurrentChat(res.data[0].id);
+      } catch (err) {
+        setIsAuthenticated(false);
+      }
+    };
     const token = localStorage.getItem("x-auth-token");
     if (!token) {
       setIsAuthenticated(false);
     }
     checkIfTokenIsValid();
+
     socket.emit("login", token);
 
     socket.on("serverMessage", (message) => {
@@ -35,22 +53,6 @@ const Chat = () => {
       setFriends(message);
     });
   }, []);
-
-  const checkIfTokenIsValid = async () => {
-    const token = localStorage.getItem("x-auth-token");
-    try {
-      const config = {
-        headers: {
-          "x-auth-token": token,
-        },
-      };
-      const res = await axios.get("/api/fetch", config);
-      setFriends(res.data);
-      setCurrentChat(res.data[0].id);
-    } catch (err) {
-      setIsAuthenticated(false);
-    }
-  };
 
   const handleChangeChat = (id) => {
     setCurrentChat(id);
@@ -213,7 +215,7 @@ const Chat = () => {
               </div>
             </div>
             <div className="mesgs">
-              <div className="msg_history">
+              <ScrollToBottom className="msg_history">
                 {currentChat !== "" &&
                   friends
                     .filter((friend) => friend.id === currentChat)[0]
@@ -235,7 +237,7 @@ const Chat = () => {
                         );
                       }
                     })}
-              </div>
+              </ScrollToBottom>
               <form
                 className="type_msg"
                 onSubmit={(e) => {
