@@ -16,7 +16,14 @@ const removeUser = (email) => {
 
 const getSocketID = (email) => {
   const index = users.findIndex((user) => user.email === email);
-  return users[index].socket;
+  if (index != -1) {
+    return users[index].socket;
+  }
+};
+
+const getUserEmailFromMongoID = async (id) => {
+  const user = await User.findById(id);
+  return user.email;
 };
 
 const getUserEmailFromMongoDB = async (token) => {
@@ -57,4 +64,11 @@ const getUserIDFromMongoDB = async (token) => {
   }
 };
 
-module.exports = { addUser, removeUser, getSocketID, getUserIDFromMongoDB };
+module.exports = {
+  addUser,
+  removeUser,
+  getSocketID,
+  getUserIDFromMongoDB,
+  getUserEmailFromMongoDB,
+  getUserEmailFromMongoID,
+};

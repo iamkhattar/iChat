@@ -28,11 +28,11 @@ const Chat = () => {
     socket.emit("login", token);
 
     socket.on("serverMessage", (message) => {
-      console.log(message);
+      console.log("ServerMessage", message);
     });
 
     socket.on("newMessage", (message) => {
-      console.log(message);
+      setFriends(message);
     });
   }, []);
 
@@ -97,6 +97,7 @@ const Chat = () => {
 
     socket.emit("sendMessage", { token, receiver, message });
     setMessage("");
+    socket.emit("getMessages", token);
   };
 
   const createRecentContact = (
@@ -183,7 +184,8 @@ const Chat = () => {
                 {friends.length > 0 &&
                   friends.map((friend) => {
                     if (friend.messages.length > 0) {
-                      const lastMessage = friend.messages[0].message;
+                      const lastMessage =
+                        friend.messages[friend.messages.length - 1].message;
                       const message =
                         lastMessage.length > 50
                           ? lastMessage.substring(0, 50) + "..."

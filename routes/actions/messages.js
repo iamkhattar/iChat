@@ -19,6 +19,7 @@ const sendMessage = async (senderToken, receiver, message) => {
 
 const getMessages = async (userID) => {
   const user = await User.findById(userID).select("-password");
+
   const { friends } = user;
   var response = [];
   for (friend of friends) {
@@ -60,7 +61,6 @@ const getMessages = async (userID) => {
         new Date(a.mongoDate).getTime() - new Date(b.mongoDate).getTime()
     );
 
-    console.log(messages);
     response.push({ id, name, url: image, messages: messages });
   }
   return response;

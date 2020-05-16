@@ -8,8 +8,13 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
-const { addUser, removeUser, getSocketID } = require("./routes/actions/users");
-const { sendMessage } = require("./routes/actions/messages");
+const {
+  addUser,
+  getSocketID,
+  getUserEmailFromMongoID,
+  getUserIDFromMongoDB,
+} = require("./routes/actions/users");
+const { sendMessage, getMessages } = require("./routes/actions/messages");
 
 app.use(express.json({ extended: false }));
 
@@ -28,8 +33,22 @@ io.on("connect", (socket) => {
     socket.emit("serverMessage", "Welcome to iChat");
   });
 
-  socket.on("sendMessage", ({ token, receiver, message }) => {
+  socket.on("sendMessage", async ({ token, receiver, message }) => {
     sendMessage(token, receiver, message);
+    const receiverEmail = await getUserEmailFromMongoID(receiver);
+    const socketID = getSocketID(receiverEmail);
+    if (socketID) {
+      const receiverMessages = await getMessages(receiver);
+      io.to(socketID).emit("newMessage", receiverMessages);
+    }
+  });
+
+  socket.on("getMessages", async (token) => {
+    const userID = await getUserIDFromMongoDB(token);
+    const userEmail = await getUserEmailFromMongoID(userID);
+    const socketID = getSocketID(userEmail);
+    const userMessages = await getMessages(userID);
+    io.to(socketID).emit("newMessage", userMessages);
   });
 });
 
