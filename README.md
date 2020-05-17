@@ -2,8 +2,6 @@
 
 iChat is a real time chat application that supports private chats
 
-![Login Page](assets/login.jpg) ![Register Page](assets/register.jpg) ![Chat Page](assets/app.jpg)
-
 # Installation
 
 ## Installing Server Dependencies
@@ -29,7 +27,7 @@ Once in the client directory, use the following command to install the required 
   npm install
 ```
 
-## Running the Application
+# Running the Application
 
 To run the application in developer mode, use the following command:
 
@@ -52,6 +50,10 @@ The application will refresh automatically if any changes are made to the code i
 ## Development
 
 <img src="./assets/common/vscode.png" width="80" height="80" title="Visual Studio Code"> <img src="./assets/common/git.png" width="80" height="80" title="Git"> <img src="./assets/common/github.png" width="80" height="80" title="Github">
+
+# Application
+
+![Login Page](assets/login.jpg) ![Register Page](assets/register.jpg) ![Chat Page](assets/app.jpg)
 
 # Contributors
 
