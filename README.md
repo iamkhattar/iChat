@@ -70,7 +70,7 @@ The application will refresh automatically if any changes are made to the code i
 
 # Application
 
-| ![Login Page](_media/login.jpg) | ![Chat Page](_media/app.jpg) | ![Register Page](_media/register.jpg) |
+| ![Login Page](assets/login.jpg) | ![Chat Page](assets/app.jpg) | ![Register Page](assets/register.jpg) |
 | ------------------------------- | :--------------------------: | ------------------------------------: |
 
 
