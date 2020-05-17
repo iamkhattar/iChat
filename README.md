@@ -70,7 +70,9 @@ The application will refresh automatically if any changes are made to the code i
 
 # Application
 
-![Login Page](assets/login.jpg) ![Register Page](assets/register.jpg) ![Chat Page](assets/app.jpg)
+| ![Login Page](_media/login.jpg) | ![Chat Page](_media/app.jpg) | ![Register Page](_media/register.jpg) |
+| ------------------------------- | :--------------------------: | ------------------------------------: |
+
 
 # Contributors
 
