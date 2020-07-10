@@ -4,7 +4,7 @@ iChat is a real time chat application that supports private chats
 
 # Documentation
 
-The documentation for iChat can be viewed [here](iamkhattar.github.io/iChat)
+The documentation for iChat can be viewed [here](https://iamkhattar.github.io/iChat)
 
 # Installation
 
